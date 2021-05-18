@@ -1,0 +1,4 @@
+name: KakoiPlugin
+version: ${project.version}
+main: io.github.tomatan515.kakoiplugin.KakoiPlugin
+api-version: 1.16
