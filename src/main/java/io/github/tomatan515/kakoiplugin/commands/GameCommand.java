@@ -23,6 +23,11 @@ public class GameCommand implements CommandExecutor {
     @Override
     public boolean onCommand( CommandSender s, Command c,  String l, String[] args) {
 
+        if (!s.isOp()) {
+            s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "" + ChatColor.BOLD + "You don't have enough permission to perform this command.");
+            return true;
+        }
+
         if (args[0].isEmpty()) {
             s.sendMessage(ChatColor.GRAY + KakoiPlugin.PREFIX + KakoiPlugin.COMMAND);
             return false;
@@ -61,12 +66,18 @@ public class GameCommand implements CommandExecutor {
             s.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "スポーン地点を" + WorldPreparer.getSpawnLocation().toString() + "に設定しました！");
             return true;
         }
+        else if (args[0].equalsIgnoreCase("warihuri"))
+        {
+            s.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
+            AssignCharacter.specificGirl();
+            return true;
+        }
         else if (args[0].equalsIgnoreCase("test"))
         {
             if (s.isOp() && s instanceof Player)
             {
                 Player p = (Player) s;
-                p.getWorld().spawnParticle(Particle.HEART , p.getLocation() , 10 , 1 , 1 , 1 , 10);
+                p.getWorld().spawnParticle(Particle.SMOKE_NORMAL , p.getLocation() , 0 , 2 , 2 , 2);
             }
         }
         else if (args[0].equalsIgnoreCase("debug"))
