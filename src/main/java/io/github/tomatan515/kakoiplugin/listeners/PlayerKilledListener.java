@@ -1,9 +1,13 @@
 package io.github.tomatan515.kakoiplugin.listeners;
 
+import io.github.tomatan515.kakoiplugin.KakoiPlugin;
 import io.github.tomatan515.kakoiplugin.characters.ChType;
 import io.github.tomatan515.kakoiplugin.characters.Character;
+import io.github.tomatan515.kakoiplugin.characters.Girl;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -65,10 +69,26 @@ public class PlayerKilledListener implements Listener {
         }
     }
 
-    private void onDeath()
+    private void onDeath(Player damaged , Player damager)
     {
         //isCought = trueに。
         //装備をわたす⇒黒の革全身
         //damagerが女ならkillcountを足す。
+        try
+        {
+            Man man = (Man) GameManager.getCharacter(damaged.getUniqueId());
+            man.setCought(true);
+
+            if (GameManager.getCharacter(damager.getUniqueId()).getType().equals(ChType.GIRL))
+            {
+                Girl girl = (Girl) GameManager.getCharacter(damager.getUniqueId());
+                girl.addKillCount();
+            }
+
+        }
+        catch (Exception e)
+        {
+            Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "エラーが発生しました。このバグを管理者に報告してください。(PlayerKilledListener 81)");
+        }
     }
 }

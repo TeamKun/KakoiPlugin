@@ -1,4 +1,4 @@
-package io.github.tomatan515.kakoiplugin.shop;
+package io.github.tomatan515.kakoiplugin.listeners;
 
 import io.github.tomatan515.kakoiplugin.KakoiPlugin;
 import io.github.tomatan515.kakoiplugin.characters.Girl;

@@ -16,6 +16,11 @@ public class Girl extends Character {
         return killCount;
     }
 
+    public void addKillCount()
+    {
+        killCount++;
+    }
+
     public int getMoney()
     {
         return money;

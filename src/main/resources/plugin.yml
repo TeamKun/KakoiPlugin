@@ -2,3 +2,14 @@ name: KakoiPlugin
 version: ${project.version}
 main: io.github.tomatan515.kakoiplugin.KakoiPlugin
 api-version: 1.16
+
+commands:
+  game:
+    usage: /game <start>
+    description: This command is main way to start the game.
+  shop:
+    usage: /shop
+    description: This command enables girls to purchase some items during the game.
+  s:
+    usage: /s
+    description: This command enables girls to purchase some items during the game.

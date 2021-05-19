@@ -15,4 +15,9 @@ public class Man extends Character{
     {
         return isCought;
     }
+
+    public void setCought(boolean isCought)
+    {
+        this.isCought = isCought;
+    }
 }

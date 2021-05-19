@@ -16,7 +16,8 @@ public class WorldPreparer {
     {
         if (GameManager.isStarted)
         {
-
+            GameManager.getJoinedPlayers().clear();
+            GameManager.isStarted = false;
         }
         else
         {
