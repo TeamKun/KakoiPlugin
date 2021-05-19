@@ -10,6 +10,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -36,7 +37,15 @@ public class GameTimer extends BukkitRunnable {
         update();
         time--;
 
-        if (time < 0)
+
+        if (time >= 0 && time <= 5)
+        {
+            for (Player p : Bukkit.getOnlinePlayers())
+            {
+                p.playSound(p.getLocation() , Sound.UI_STONECUTTER_SELECT_RECIPE , 1 , 1);
+            }
+        }
+        else if (time < 0)
         {
             //男の勝ち
             //逃げ切った男を表示
@@ -90,6 +99,7 @@ public class GameTimer extends BukkitRunnable {
                     for (Player player : Bukkit.getOnlinePlayers())
                     {
                         player.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "終了！！！");
+                        player.playSound(player.getLocation() , Sound.BLOCK_ANVIL_USE , 0.5F , 1);
                     }
                 }
                 else if (i == 3)
@@ -139,6 +149,7 @@ public class GameTimer extends BukkitRunnable {
             for (Player p : Bukkit.getOnlinePlayers())
             {
                 p.sendMessage(KakoiPlugin.PREFIX + ChatColor.YELLOW + "" + ChatColor.BOLD + "逃げ切れた男は誰一人おらず、全員女のとりこになりました。" + ChatColor.RESET);
+                p.playSound(p.getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
             }
 
             for (Character ch : GameManager.getJoinedPlayers())
@@ -147,10 +158,12 @@ public class GameTimer extends BukkitRunnable {
                 if (ch.getType().equals(ChType.MAN))
                 {
                     p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "女の誘惑には勝てないね・・・。" , 10 , 40 , 10);
+                    p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                 }
                 else
                 {
                     p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "男がちでちょろすんぎ。（笑）" , 10 , 40 , 10);
+                    p.playSound(p.getLocation() , Sound.UI_TOAST_CHALLENGE_COMPLETE , 0.5F , 1);
                 }
             }
         }
@@ -161,6 +174,7 @@ public class GameTimer extends BukkitRunnable {
             for (Player p : Bukkit.getOnlinePlayers())
             {
                 p.sendMessage(KakoiPlugin.PREFIX + str + " " + ChatColor.RESET + "" + ChatColor.GREEN + "が自我を保ち、女の子から断腸の思いで逃げ切りました！" + ChatColor.RESET);
+                p.playSound(p.getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
             }
 
             for (Character ch : GameManager.getJoinedPlayers())
@@ -169,10 +183,12 @@ public class GameTimer extends BukkitRunnable {
                 if (ch.getType().equals(ChType.MAN))
                 {
                     p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "女おもろｗ" , 10 , 40 , 10);
+                    p.playSound(p.getLocation() , Sound.UI_TOAST_CHALLENGE_COMPLETE , 0.5F , 1);
                 }
                 else
                 {
                     p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "ｱｾｱｾ(ˉ ˘ ˉ; )アプローチの仕方・・もう少し変えてみよ。。" , 10 , 40 , 10);
+                    p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                 }
             }
 
@@ -202,6 +218,8 @@ public class GameTimer extends BukkitRunnable {
                 player.sendMessage(KakoiPlugin.PREFIX + ChatColor.YELLOW + "" + ChatColor.BOLD + "一番男を落とした女の子は");
                 player.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "" + ChatColor.BOLD + Bukkit.getPlayer(mvp.getUniqueId()).getName()
                 + ChatColor.RESET + "で" + ChatColor.GREEN + ChatColor.BOLD + mvp.getKillCount() + "人落としました！！！");
+
+                player.playSound(player.getLocation() , Sound.ENTITY_CAT_STRAY_AMBIENT , 1 , 1);
             }
         }
         else

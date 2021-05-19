@@ -76,6 +76,7 @@ public class WorldPreparer {
                         man.setCought(false);
                         wearArmors(getLeatherArmors(Color.BLUE) , Bukkit.getPlayer(ch.getUniqueId()));
                         Bukkit.getPlayer(ch.getUniqueId()).sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "誘惑してくる女の子から逃げ切れ！！");
+                        Bukkit.getPlayer(ch.getUniqueId()).playSound(Bukkit.getPlayer(ch.getUniqueId()).getLocation() , Sound.UI_LOOM_TAKE_RESULT , 1 , 1);
                         Bukkit.getPlayer(ch.getUniqueId()).teleport(WorldPreparer.getSpawnLocation());
                         Bukkit.getPlayer(ch.getUniqueId()).setGameMode(GameMode.ADVENTURE);
                     }
@@ -85,6 +86,7 @@ public class WorldPreparer {
                     for (Player p : Bukkit.getOnlinePlayers())
                     {
                         p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと15秒で女の子が誘惑しに来ます！！！");
+                        p.playSound(p.getLocation() , Sound.ENTITY_CAT_STRAY_AMBIENT , 1 , 1);
                     }
                 }
                 else if (i > 10 && i <= 15)
@@ -92,6 +94,7 @@ public class WorldPreparer {
                     for (Player p : Bukkit.getOnlinePlayers())
                     {
                         p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "女の子が動き出すまで:" + (15 - i));
+                        p.playSound(p.getLocation() , Sound.UI_STONECUTTER_SELECT_RECIPE , 1 , 1);
                     }
                 }
                 else if (i > 15)
@@ -112,6 +115,7 @@ public class WorldPreparer {
                     for (Player p : Bukkit.getOnlinePlayers())
                     {
                         p.sendTitle(ChatColor.WHITE + "" + ChatColor.BOLD + "ゲームスタート!!" ,"" , 0 , 30 , 20);
+                        p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                     }
 
                     this.cancel();

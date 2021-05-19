@@ -1,17 +1,13 @@
 package io.github.tomatan515.kakoiplugin.listeners;
 
 import io.github.tomatan515.kakoiplugin.KakoiPlugin;
-import io.github.tomatan515.kakoiplugin.characters.ChType;
 import io.github.tomatan515.kakoiplugin.characters.Character;
-import io.github.tomatan515.kakoiplugin.characters.Girl;
-import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class ShopListener implements Listener {
 

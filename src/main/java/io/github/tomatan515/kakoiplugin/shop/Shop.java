@@ -20,18 +20,18 @@ public class Shop {
 
     public void open(Player player)
     {
-        Inventory inv = Bukkit.createInventory(null , 9 , "Shop (所持金:" + GameManager.getCharacter(player.getUniqueId()).getMoney());
+        Inventory inv = Bukkit.createInventory(null , 9 , "Shop (所持金:" + GameManager.getCharacter(player.getUniqueId()).getMoney() + ")");
 
         if (GameManager.getCharacter(player.getUniqueId()).getType().equals(ChType.MAN))
         {
-            inv.setItem(0 , makeItem(Material.LIGHT_BLUE_DYE , ChatColor.YELLOW + "ヘイト誘導" , 1 , "使うと10秒間ランダムで選ばれる特定の男にデバフをかける(自分の場合もある）" , Arrays.asList("え！？なんで俺だけなの！？" , "いやいや、他の人もしてますよ！！")));
+            inv.setItem(0 , makeItem(Material.LIGHT_BLUE_DYE , ChatColor.YELLOW + "ヘイト誘導" , 1 , "使うとランダムで選ばれる特定の男にデバフがかける" , Arrays.asList("え！？なんで俺だけなの！？" , "いやいや、他の人もしてますよ！！")));
             inv.setItem(1 , makeItem(Material.GREEN_DYE , ChatColor.YELLOW + "デマ「KUNさん来たから行ってくる！！」" , 1 , "5秒間の間、周囲のプレイヤーから見えなくなる" , Arrays.asList("「お！ＫＵＮさん来た！！じゃ！ツイコールきるね～！！」" , "↑よく使われる(ガチ）")));
             inv.setItem(2 , makeItem(Material.LIME_DYE, ChatColor.YELLOW + "お気持ち表明" , 1, "使うと三秒間、防御力が強化される。" , Arrays.asList("この度は申し訳ありませんでした。" , "お！アンチが減って、、いや増えてる！？")));
         }
         else
         {
             inv.setItem(0 , makeItem(Material.RED_DYE , ChatColor.YELLOW + "自撮りテイカー" , 1 , "生き残ってる男を全員3秒間動けなくする" , Arrays.asList("○○の自撮りが公開されてる！？", "マイクラなんてやってられねえ！ちょっと見てくるわ！")));
-            inv.setItem(1 , makeItem(Material.BLUE_DYE , ChatColor.YELLOW + "DMデリバー" , 1, "生き残ってる男の中からランダムで特定の男を二秒間発光させる" , Arrays.asList("え！？僕ですか！？" , "いやいや～女の子とＤＭなんてｗしてませんってｗ")));
+            inv.setItem(1 , makeItem(Material.BLUE_DYE , ChatColor.YELLOW + "DMデリバー" , 1, "生き残ってる男の中からランダムで特定の男を5秒間発光させる" , Arrays.asList("え！？僕ですか！？" , "いやいや～女の子とＤＭなんてｗしてませんってｗ")));
             inv.setItem(2 , makeItem(Material.YELLOW_DYE , ChatColor.YELLOW + "アスレサポーター" , 1 , "5秒間の間、ジャンプ力が二倍になる" , Arrays.asList("女性の皆さん、安心してください。" , "アスレマウントしてくる男にはこれです！！")));
         }
 

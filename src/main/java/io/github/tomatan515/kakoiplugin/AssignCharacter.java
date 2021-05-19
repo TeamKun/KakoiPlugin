@@ -58,8 +58,8 @@ public class AssignCharacter {
             }
         }
 
-        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
-        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.LIGHT_PURPLE + "女:" + GameManager.getCount(ChType.GIRL) + "," +
+        Bukkit.getServer().broadcastMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
+        Bukkit.getServer().broadcastMessage(KakoiPlugin.PREFIX + ChatColor.LIGHT_PURPLE + "女:" + GameManager.getCount(ChType.GIRL) + "," +
                 ChatColor.BLUE + "男:" +ChatColor.WHITE + GameManager.getCount(ChType.MAN));
     }
 
@@ -68,7 +68,7 @@ public class AssignCharacter {
         //ランダムにプレイヤーを割り振りする。
         if ((manCount + girlCount) != Bukkit.getOnlinePlayers().size())
         {
-            Bukkit.getServer().getConsoleSender().sendMessage(KakoiPlugin.PREFIX + KakoiPlugin.COMMAND);
+            Bukkit.getServer().broadcastMessage(KakoiPlugin.PREFIX + KakoiPlugin.COMMAND);
             return;
         }
         GameManager.getJoinedPlayers().clear();
@@ -87,8 +87,8 @@ public class AssignCharacter {
             }
         }
 
-        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
-        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.LIGHT_PURPLE + "女:" + GameManager.getCount(ChType.GIRL) + "," +
+        Bukkit.getServer().broadcastMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
+        Bukkit.getServer().broadcastMessage(KakoiPlugin.PREFIX + ChatColor.LIGHT_PURPLE + "女:" + GameManager.getCount(ChType.GIRL) + "," +
                 ChatColor.BLUE + "男:" +ChatColor.WHITE + GameManager.getCount(ChType.MAN));
     }
 }
