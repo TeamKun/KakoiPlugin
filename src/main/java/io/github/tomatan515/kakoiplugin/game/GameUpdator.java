@@ -44,6 +44,7 @@ public class GameUpdator extends BukkitRunnable {
             else
             {
                 //捕まってなかったら
+                man.addMoney(1);
             }
         }
     }

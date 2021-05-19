@@ -9,5 +9,6 @@ import java.util.List;
 
 public class ItemManager {
 
-    public static HashMap<String , Material> items = new HashMap<>();
+    public static HashMap<String , Material> girlItems = new HashMap<>();
+    public static HashMap<String , Material> manItems = new HashMap<>();
 }

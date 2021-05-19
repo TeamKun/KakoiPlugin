@@ -6,13 +6,17 @@ import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Girl;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
+import io.github.tomatan515.kakoiplugin.game.WorldPreparer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerKilledListener implements Listener {
 
@@ -44,6 +48,11 @@ public class PlayerKilledListener implements Listener {
 
                     //死んだときの処理
                     onDeath(damaged , damager);
+                    //不真面目にした！！！等のメッセージ
+                }
+                else
+                {
+                    damaged.getWorld().spawnParticle(Particle.HEART , damaged.getLocation() , 10 , 1 , 1 , 1 , 10);
                 }
             }
         }
@@ -74,17 +83,41 @@ public class PlayerKilledListener implements Listener {
         //isCought = trueに。
         //装備をわたす⇒黒の革全身
         //damagerが女ならkillcountを足す。
+
+        for (Player p : Bukkit.getOnlinePlayers())
+        {
+            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.DARK_BLUE + damaged.getName() + "が" + damager.getName() + "の誘惑に乗り理性を失った。");
+        }
         try
         {
             Man man = (Man) GameManager.getCharacter(damaged.getUniqueId());
             man.setCought(true);
-
             if (GameManager.getCharacter(damager.getUniqueId()).getType().equals(ChType.GIRL))
             {
                 Girl girl = (Girl) GameManager.getCharacter(damager.getUniqueId());
                 girl.addKillCount();
             }
 
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    int i = 0;
+
+                    if (i > 3)
+                    {
+                        PlayerJoinLeftListener.manRespawn(damaged);
+                        this.cancel();
+                    }
+                    else
+                    {
+                        damaged.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                    }
+
+                    i++;
+                }
+            }.runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class) , 0 , 20);
         }
         catch (Exception e)
         {

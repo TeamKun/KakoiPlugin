@@ -7,6 +7,8 @@ public class Character {
     private UUID uuid;
     private ChType type;
 
+    private int money = 0;
+
     public Character(UUID uuid)
     {
         this.uuid = uuid;
@@ -24,5 +26,25 @@ public class Character {
     public ChType getType()
     {
         return type;
+    }
+
+    public int getMoney()
+    {
+        return money;
+    }
+
+    public void addMoney(int addition)
+    {
+        money += addition;
+    }
+
+    public void decMoney (int dec)
+    {
+        money -= dec;
+    }
+
+    public void clearMoney()
+    {
+        money = 0;
     }
 }

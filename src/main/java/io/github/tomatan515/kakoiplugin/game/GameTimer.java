@@ -1,6 +1,6 @@
 package io.github.tomatan515.kakoiplugin.game;
 
-import com.sun.xml.internal.fastinfoset.util.PrefixArray;
+
 import io.github.tomatan515.kakoiplugin.KakoiPlugin;
 import io.github.tomatan515.kakoiplugin.characters.ChType;
 import io.github.tomatan515.kakoiplugin.characters.Character;
@@ -14,9 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class GameTimer extends BukkitRunnable {
@@ -54,7 +52,7 @@ public class GameTimer extends BukkitRunnable {
         {
             //ActionBarの表示
             //残り時間や残り人数など
-            String msg = "残り時間:" + time + " , " + "残りの男:" + GameManager.getHonestMan().size() + "人" + " , " + "参加人数:" + GameManager.getJoinedPlayers().size();
+            String msg = "残り時間:" + timeToMinute(time) + " , " + "残りの男:" + GameManager.getHonestMan().size() + "人" + " , " + "参加人数:" + GameManager.getJoinedPlayers().size();
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR , TextComponent.fromLegacyText(msg));
         }
 
@@ -62,6 +60,11 @@ public class GameTimer extends BukkitRunnable {
         {
             showResult();
         }
+    }
+
+    private String timeToMinute(int second)
+    {
+        return (( second / 60 ) % 60) + "分" + (second % 60) + "秒";
     }
 
     public void addTime()
@@ -97,7 +100,14 @@ public class GameTimer extends BukkitRunnable {
                 {
                     rankingGirl();
                 }
-                else if (i > 6)
+                else if (i == 7)
+                {
+                    for (Player player : Bukkit.getOnlinePlayers())
+                    {
+                        player.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "初期地にリスポーンします・・・。");
+                    }
+                }
+                else if (i > 8)
                 {
                     WorldPreparer.end();
                     this.cancel();
@@ -130,6 +140,19 @@ public class GameTimer extends BukkitRunnable {
             {
                 p.sendMessage(KakoiPlugin.PREFIX + ChatColor.YELLOW + "" + ChatColor.BOLD + "逃げ切れた男は誰一人おらず、全員女のとりこになりました。" + ChatColor.RESET);
             }
+
+            for (Character ch : GameManager.getJoinedPlayers())
+            {
+                Player p = Bukkit.getPlayer(ch.getUniqueId());
+                if (ch.getType().equals(ChType.MAN))
+                {
+                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "女の誘惑には勝てないね・・・。" , 10 , 40 , 10);
+                }
+                else
+                {
+                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "男がちでちょろすんぎ。（笑）" , 10 , 40 , 10);
+                }
+            }
         }
         else
         {
@@ -139,6 +162,20 @@ public class GameTimer extends BukkitRunnable {
             {
                 p.sendMessage(KakoiPlugin.PREFIX + str + " " + ChatColor.RESET + "" + ChatColor.GREEN + "が自我を保ち、女の子から断腸の思いで逃げ切りました！" + ChatColor.RESET);
             }
+
+            for (Character ch : GameManager.getJoinedPlayers())
+            {
+                Player p = Bukkit.getPlayer(ch.getUniqueId());
+                if (ch.getType().equals(ChType.MAN))
+                {
+                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "女おもろｗ" , 10 , 40 , 10);
+                }
+                else
+                {
+                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "ｱｾｱｾ(ˉ ˘ ˉ; )アプローチの仕方・・もう少し変えてみよ。。" , 10 , 40 , 10);
+                }
+            }
+
         }
     }
 

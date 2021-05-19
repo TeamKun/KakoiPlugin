@@ -5,7 +5,6 @@ import java.util.UUID;
 public class Girl extends Character {
 
     private int killCount = 0;
-    private int money = 0;
 
     public Girl(UUID uuid) {
         super(uuid);
@@ -19,20 +18,5 @@ public class Girl extends Character {
     public void addKillCount()
     {
         killCount++;
-    }
-
-    public int getMoney()
-    {
-        return money;
-    }
-
-    public void addMoney(int addition)
-    {
-        money += addition;
-    }
-
-    public void decMoney (int dec)
-    {
-        money -= dec;
     }
 }

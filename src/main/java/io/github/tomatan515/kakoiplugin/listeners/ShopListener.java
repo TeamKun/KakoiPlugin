@@ -1,7 +1,10 @@
 package io.github.tomatan515.kakoiplugin.listeners;
 
 import io.github.tomatan515.kakoiplugin.KakoiPlugin;
+import io.github.tomatan515.kakoiplugin.characters.ChType;
+import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Girl;
+import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,20 +32,21 @@ public class ShopListener implements Listener {
 
         if (e.getView().getTitle().contains("Shop"))
         {
-            Girl girl = (Girl) GameManager.getCharacter(p.getUniqueId());
+            Character c = GameManager.getCharacter(p.getUniqueId());
 
             Integer price = Integer.parseInt(e.getCurrentItem().getItemMeta().getLore().get(1));
 
-            if (girl.getMoney() <= price)
+            if (c.getMoney() <= price)
             {
-                p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "お金が足りないので、このアイテムは購入できません！ 必要金額:" + price + ", 所持金額:" + girl.getMoney());
+                p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "お金が足りないので、このアイテムは購入できません！ 必要金額:" + price + ", 所持金額:" + c.getMoney());
                 return;
             }
 
-            girl.decMoney(price);
+            c.decMoney(price);
             p.getInventory().addItem(e.getCurrentItem());
-            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "%item% を" + price + "コインで購入しました！"
-                    .replaceAll("%item%" , e.getCurrentItem().getItemMeta().getDisplayName()));
+            p.updateInventory();
+            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + e.getCurrentItem().getItemMeta().getDisplayName() +" を" + price + "コインで購入しました！");
+            p.closeInventory();
         }
     }
 }
