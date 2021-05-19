@@ -86,7 +86,7 @@ public class PlayerKilledListener implements Listener {
 
         for (Player p : Bukkit.getOnlinePlayers())
         {
-            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.DARK_BLUE + damaged.getName() + "が" + damager.getName() + "の誘惑に乗り理性を失った。");
+            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.BLUE + damaged.getName() + "が" + damager.getName() + "の誘惑に乗り理性を失った。");
         }
         try
         {
@@ -100,10 +100,11 @@ public class PlayerKilledListener implements Listener {
 
             new BukkitRunnable()
             {
+                int i = 0;
+
                 @Override
                 public void run()
                 {
-                    int i = 0;
 
                     if (i > 3)
                     {
@@ -113,9 +114,11 @@ public class PlayerKilledListener implements Listener {
                     else
                     {
                         damaged.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                        damaged.setGameMode(GameMode.SPECTATOR);
                     }
 
                     i++;
+
                 }
             }.runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class) , 0 , 20);
         }

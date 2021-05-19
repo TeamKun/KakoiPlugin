@@ -6,9 +6,12 @@ import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Girl;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import org.bukkit.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ public class WorldPreparer {
 
         for (Player p : Bukkit.getOnlinePlayers())
         {
-            p.setGameMode(GameMode.ADVENTURE);
+            p.setGameMode(GameMode.SPECTATOR);
             p.getInventory().clear();
             p.getInventory().addItem(new ItemStack(Material.BREAD , 64));
             p.updateInventory();
@@ -102,6 +105,7 @@ public class WorldPreparer {
                         Bukkit.getPlayer(ch.getUniqueId()).sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "/shop (または/s)でコインを使用してアイテムが購入できます！");
 
                         Bukkit.getPlayer(ch.getUniqueId()).teleport(WorldPreparer.getSpawnLocation());
+                        Bukkit.getPlayer(ch.getUniqueId()).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 4 , false , false));
                         Bukkit.getPlayer(ch.getUniqueId()).setGameMode(GameMode.ADVENTURE);
                     }
 
@@ -125,24 +129,28 @@ public class WorldPreparer {
         ItemStack helmet = new ItemStack(Material.LEATHER_HELMET , 1);
         LeatherArmorMeta he = (LeatherArmorMeta) helmet.getItemMeta();
         he.setColor(clr);
+        he.addEnchant(Enchantment.DURABILITY , 30 , true);
         helmet.setItemMeta(he);
         armors.add(helmet);
 
         ItemStack chestPlate = new ItemStack(Material.LEATHER_CHESTPLATE , 1);
         LeatherArmorMeta cp = (LeatherArmorMeta) chestPlate.getItemMeta();
         cp.setColor(clr);
+        cp.addEnchant(Enchantment.DURABILITY , 30 , true);
         chestPlate.setItemMeta(cp);
         armors.add(chestPlate);
 
         ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS , 1);
         LeatherArmorMeta le = (LeatherArmorMeta) leggings.getItemMeta();
         le.setColor(clr);
+        le.addEnchant(Enchantment.DURABILITY , 30 , true);
         leggings.setItemMeta(le);
         armors.add(leggings);
 
         ItemStack boots = new ItemStack(Material.LEATHER_BOOTS , 1);
         LeatherArmorMeta bo = (LeatherArmorMeta) boots.getItemMeta();
         bo.setColor(clr);
+        bo.addEnchant(Enchantment.DURABILITY , 30 , true);
         boots.setItemMeta(bo);
         armors.add(boots);
 

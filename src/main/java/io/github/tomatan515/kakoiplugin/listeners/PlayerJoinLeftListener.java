@@ -7,16 +7,15 @@ import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
 import io.github.tomatan515.kakoiplugin.game.WorldPreparer;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
@@ -41,6 +40,9 @@ public class PlayerJoinLeftListener implements Listener {
         //初期値にリスポーン
         player.teleport(WorldPreparer.getSpawnLocation());
         player.setGameMode(GameMode.ADVENTURE);
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 4 , false , false));
+
         player.getInventory().setHelmet(new ItemStack(Material.WITHER_SKELETON_SKULL));
 
         List<ItemStack> armors = WorldPreparer.getLeatherArmors(Color.BLACK);

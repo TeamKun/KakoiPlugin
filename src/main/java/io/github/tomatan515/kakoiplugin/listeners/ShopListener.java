@@ -39,6 +39,7 @@ public class ShopListener implements Listener {
             if (c.getMoney() <= price)
             {
                 p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "お金が足りないので、このアイテムは購入できません！ 必要金額:" + price + ", 所持金額:" + c.getMoney());
+                e.setCancelled(true);
                 return;
             }
 

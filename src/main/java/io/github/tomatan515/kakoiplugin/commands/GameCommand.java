@@ -42,7 +42,7 @@ public class GameCommand implements CommandExecutor {
             {
                 GameManager.isStarted = true;
 
-                new GameTimer(315).runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class), 0, 20);
+                new GameTimer(190).runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class), 0, 20);
                 new GameUpdator().runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class), 0, 20);
 
                 WorldPreparer.onStart();
@@ -96,6 +96,10 @@ public class GameCommand implements CommandExecutor {
                 else if (args[1].equalsIgnoreCase("man"))
                 {
                     GameManager.getJoinedPlayers().add(GameManager.makeCharacter(ChType.MAN , ((Player) s).getUniqueId()));
+                }
+                else if (args[1].equalsIgnoreCase("warihuri"))
+                {
+                    AssignCharacter.randomize(Bukkit.getOnlinePlayers().size() - 1 , 1);
                 }
             }
         }
