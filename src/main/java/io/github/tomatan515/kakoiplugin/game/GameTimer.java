@@ -32,6 +32,7 @@ public class GameTimer extends BukkitRunnable {
         if (!GameManager.isStarted)
         {
             this.cancel();
+            return;
         }
 
         update();
@@ -45,11 +46,15 @@ public class GameTimer extends BukkitRunnable {
                 p.playSound(p.getLocation() , Sound.UI_STONECUTTER_SELECT_RECIPE , 1 , 1);
             }
         }
-        else if (time < 0)
+        else if (time < 0 && GameManager.isStarted)
         {
             //男の勝ち
             //逃げ切った男を表示
             //女のキル数を表示
+            GameManager.isStarted = false;
+
+            Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (timer) ");
+
             showResult();
             this.cancel();
         }
@@ -57,17 +62,18 @@ public class GameTimer extends BukkitRunnable {
 
     private void update()
     {
+        if (GameManager.getHonestMan().size() <= 0)
+        {
+            GameManager.isStarted = false;
+            Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (update) ");
+            showResult();
+        }
         for (Player p : Bukkit.getOnlinePlayers())
         {
             //ActionBarの表示
             //残り時間や残り人数など
             String msg = "残り時間:" + timeToMinute(time) + " , " + "残りの男:" + GameManager.getHonestMan().size() + "人" + " , " + "参加人数:" + GameManager.getJoinedPlayers().size();
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR , TextComponent.fromLegacyText(msg));
-        }
-
-        if (GameManager.getHonestMan().size() <= 0)
-        {
-            showResult();
         }
     }
 
@@ -102,7 +108,6 @@ public class GameTimer extends BukkitRunnable {
                         player.sendTitle("" , ChatColor.GREEN + "終了！！！" , 0 , 40 , 20);
                         player.playSound(player.getLocation() , Sound.BLOCK_ANVIL_USE , 0.5F , 1);
                     }
-                    GameManager.isStarted = false;
                 }
                 else if (i == 3)
                 {

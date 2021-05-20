@@ -147,9 +147,9 @@ public class UseItemListener implements Listener {
                                 {
                                     for (Player pl : Bukkit.getOnlinePlayers())
                                     {
-                                        pl.sendTitle("" , ChatColor.GREEN + p.getName() + "が女の子とDMのやり取りをしていたらリークされてしまった！！！" , 0 , 20 , 0);
+                                        pl.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + p.getName() + "が女の子とDMのやり取りをしていたらリークされてしまった！！！");
                                         pl.playSound(p.getLocation() , Sound.ENTITY_EGG_THROW , 1 , 1);
-                                        pl.sendTitle("" , ChatColor.GREEN + "ツイッターのキッズが騒ぎ出した！！" + p.getName() + "は5秒間発光します。" , 0 , 20 , 0);
+                                        pl.sendTitle("" , ChatColor.GREEN + "ツイッターのキッズが騒ぎ出した！！" + p.getName() + "は5秒間発光します。" , 0, 40 , 10);
 
                                     }
 
@@ -208,7 +208,7 @@ public class UseItemListener implements Listener {
                             p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + e.getPlayer().getName() + "はヘイト誘導をした！！");
                             pl.playSound(p.getLocation() , Sound.ENTITY_EGG_THROW , 1 , 1);
                             p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + ChatColor.BOLD + "矛先→" + pl.getName());
-                            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + e.getPlayer().getName() + "は悪影響を被った！");
+                            p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + pl.getName() + "は悪影響を被った！");
                         }
 
                         pl.addPotionEffect(new PotionEffect(PotionEffectType.SLOW , 100 , 5 , false , false));
@@ -278,17 +278,17 @@ public class UseItemListener implements Listener {
 
                                     if (j == 0)
                                     {
-                                        e.getPlayer().sendTitle("" , ChatColor.DARK_PURPLE + "<" + e.getPlayer().getName() + "> " + "反省の意をこめて、この通り頭を丸めさせていただきました・・・。", 0 , 10 , 0);
+                                        e.getPlayer().sendTitle("" , ChatColor.DARK_PURPLE + "この通り頭を丸めさせていただきました・・・。", 10 , 40 , 10);
                                         e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
                                     }
                                     else if (j == 1)
                                     {
-                                        e.getPlayer().sendMessage(ChatColor.DARK_PURPLE + "<" + e.getPlayer().getName() + "> " + "だって。。。おれ別に悪くないし！！！仕方ないやろ！！");
+                                        e.getPlayer().sendTitle("" , ChatColor.DARK_PURPLE +  "だって。。。おれ別に悪くないし！！！仕方ないやろ！！", 10 , 40 , 10);
                                         e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
                                     }
                                     else if (j == 2)
                                     {
-                                        e.getPlayer().sendMessage(ChatColor.DARK_PURPLE + "<" + e.getPlayer().getName() + "> " + "この界隈は今日でさよなら。ありがとうございました。");
+                                        e.getPlayer().sendTitle("" , ChatColor.DARK_PURPLE + "この界隈は今日でさよなら。ありがとうございました。", 10 , 40 , 10);
                                         e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
                                     }
                                 }
@@ -314,7 +314,8 @@ public class UseItemListener implements Listener {
 
                             if (ch.getType().equals(ChType.GIRL))
                             {
-                                e.getPlayer().hidePlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , p);
+                                //e.getPlayer()を隠す
+                                p.hidePlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , e.getPlayer());
                             }
 
                             p.playSound(p.getLocation() , Sound.ENTITY_EGG_THROW , 1 , 1);
@@ -331,29 +332,30 @@ public class UseItemListener implements Listener {
                                     this.cancel();
                                     for (Player p : Bukkit.getOnlinePlayers())
                                     {
-                                        e.getPlayer().showPlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , p);
+                                        //e.getPlayer()をshowする
+                                        p.showPlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , e.getPlayer());
                                     }
                                     return;
                                 }
 
                                 if (i == 0)
                                 {
-                                    e.getPlayer().sendMessage(ChatColor.BLUE + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "（・・・気まずいなー）");
+                                    e.getPlayer().sendMessage(ChatColor.AQUA + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "（・・・気まずいなー）");
                                     e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_SHEEP_SHEAR , 1 , 1);
                                 }
                                 else if (i == 5)
                                 {
-                                    e.getPlayer().sendMessage(ChatColor.BLUE + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "お！KUNさん来たわ！（嘘）じゃ！切るね～！");
+                                    e.getPlayer().sendMessage(ChatColor.AQUA + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "お！KUNさん来たわ！（嘘）じゃ！切るね～！");
                                     e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_SHEEP_SHEAR , 1 , 1);
 
                                     for (Player p : Bukkit.getOnlinePlayers())
                                     {
-                                        e.getPlayer().showPlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , p);
+                                        p.showPlayer(KakoiPlugin.getPlugin(KakoiPlugin.class) , e.getPlayer());
                                     }
                                 }
                                 else if (i == 7)
                                 {
-                                    e.getPlayer().sendMessage(ChatColor.BLUE + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "（・・・よし！！次の人！！次！！）");
+                                    e.getPlayer().sendMessage(ChatColor.AQUA + "[TWICALL]" + "<" + e.getPlayer().getName() + "> " + "（・・・よし！！次の人！！次！！）");
                                     e.getPlayer().playSound(e.getPlayer().getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
                                 }
                                 else if (i > 8)

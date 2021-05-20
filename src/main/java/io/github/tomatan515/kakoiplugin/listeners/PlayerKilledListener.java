@@ -37,6 +37,11 @@ public class PlayerKilledListener implements Listener {
                     e.setCancelled(true);
                     return;
                 }
+                else if (((Man)GameManager.getCharacter(damaged.getUniqueId())).isCought())
+                {
+                    e.setCancelled(true);
+                    return;
+                }
 
                 Player damager = (Player) e.getDamager();
 

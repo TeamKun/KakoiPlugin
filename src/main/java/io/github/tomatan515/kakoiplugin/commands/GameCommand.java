@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 public class GameCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand( CommandSender s, Command c,  String l, String[] args) {
+    public boolean onCommand( CommandSender s, Command c,  String l, String[] args){
 
         if (!s.isOp()) {
             s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "" + ChatColor.BOLD + "You don't have enough permission to perform this command.");
@@ -29,6 +29,12 @@ public class GameCommand implements CommandExecutor {
 
         if (args[0].isEmpty()) {
             s.sendMessage(ChatColor.GRAY + KakoiPlugin.PREFIX + KakoiPlugin.COMMAND);
+            s.sendMessage(KakoiPlugin.PREFIX + "/game start <time> ... <time> 秒でゲームスタートする");
+            s.sendMessage(KakoiPlugin.PREFIX + "/game location ... スポーン地点を決める");
+            s.sendMessage(KakoiPlugin.PREFIX + "/game warihuri girl ... 女の人を特定の人に限定して割り振る");
+            s.sendMessage(KakoiPlugin.PREFIX + "/game warihuri <number> ... <number>人を男にランダムに割り振る。");
+            s.sendMessage(KakoiPlugin.PREFIX + "/game join <girl/man> ... <girl>(man)に転生する。");
+
             return false;
         } else if (args[0].equalsIgnoreCase("start")) {
 
@@ -97,12 +103,34 @@ public class GameCommand implements CommandExecutor {
                 s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "第2引数には数値を入力してください。");
             }
         }
-        else if (args[0].equalsIgnoreCase("test"))
+        else if (args[0].equalsIgnoreCase("join"))
         {
+            if (args[1].isEmpty())
+            {
+                s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "第二引数には「girl」か「man」を指定してください。");
+                s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "/game join <girl/man>");
+                return true;
+            }
             if (s.isOp() && s instanceof Player)
             {
                 Player p = (Player) s;
-                p.getWorld().spawnParticle(Particle.EXPLOSION_HUGE , p.getLocation() , 2 , 1 , 1 , 1, 1);
+
+                if (args[1].equalsIgnoreCase("girl"))
+                {
+                    AssignCharacter.remove(p.getUniqueId());
+                    AssignCharacter.register(ChType.GIRL , p.getUniqueId());
+                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "女の子として転生しました！");
+                }
+                else if (args[1].equalsIgnoreCase("man"))
+                {
+                    AssignCharacter.remove(p.getUniqueId());
+                    AssignCharacter.register(ChType.MAN , p.getUniqueId());
+                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "男として転生しました！");
+                }
+                else
+                {
+                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "正しく転生できませんでした。");
+                }
             }
         }
 

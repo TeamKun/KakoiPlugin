@@ -23,6 +23,15 @@ public class WorldPreparer {
 
     public static void end()
     {
+        GameManager.getJoinedPlayers().clear();
+        GameManager.isStarted = false;
+
+        for (Player p : Bukkit.getOnlinePlayers())
+        {
+            p.teleport(spawnLocation);
+        }
+
+        /**
         if (GameManager.isStarted)
         {
             GameManager.getJoinedPlayers().clear();
@@ -38,6 +47,7 @@ public class WorldPreparer {
             Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "ゲームが開始していません。ゲームを終了できませんでした。");
             return;
         }
+        **/
     }
 
     public static void onStart()
