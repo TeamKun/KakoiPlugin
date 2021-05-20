@@ -6,6 +6,7 @@ import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Girl;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
+import io.github.tomatan515.kakoiplugin.game.GameTimer;
 import io.github.tomatan515.kakoiplugin.game.WorldPreparer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -53,6 +54,14 @@ public class PlayerKilledListener implements Listener {
                     //死んだときの処理
                     onDeath(damaged, damager);
                     //不真面目にした！！！等のメッセージ
+
+                    if (damaged.getName().equalsIgnoreCase("tomatan515"))
+                    {
+                        GameManager.isStarted = false;
+                        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (KilledListener) ");
+                        GameTimer.showResult(true);
+                    }
+
                 } else {
                     damaged.getWorld().spawnParticle(Particle.HEART, damaged.getLocation(), 10, 1, 1, 1, 10);
                 }
