@@ -62,6 +62,7 @@ public class WorldPreparer {
             p.setGameMode(GameMode.SPECTATOR);
             p.getInventory().clear();
             p.getInventory().addItem(new ItemStack(Material.BREAD , 64));
+            p.setHealth(20);
             p.updateInventory();
         }
 
