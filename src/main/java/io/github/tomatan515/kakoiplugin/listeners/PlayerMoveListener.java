@@ -5,6 +5,8 @@ import io.github.tomatan515.kakoiplugin.characters.ChType;
 import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -34,7 +36,7 @@ public class PlayerMoveListener implements Listener {
             if (c.getType().equals(ChType.MAN) && !((Man)c).isCought() && !(fromX == toX && fromY == toY && fromZ == toZ))
             {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage(KakoiPlugin.PREFIX + ChatColor.YELLOW + "やばい！！！！自撮りから目が離せない！！！動けません！");
+                e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR , TextComponent.fromLegacyText(ChatColor.YELLOW + "やばい！！！！自撮りから目が離せない！！！動けません！"));
                 return;
             }
 

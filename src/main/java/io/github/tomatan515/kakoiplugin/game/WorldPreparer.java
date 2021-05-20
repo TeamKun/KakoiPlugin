@@ -108,13 +108,22 @@ public class WorldPreparer {
                         Bukkit.getPlayer(ch.getUniqueId()).sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "/shop (または/s)でコインを使用してアイテムが購入できます！");
 
                         Bukkit.getPlayer(ch.getUniqueId()).teleport(WorldPreparer.getSpawnLocation());
-                        Bukkit.getPlayer(ch.getUniqueId()).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 4 , false , false));
+                        Bukkit.getPlayer(ch.getUniqueId()).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 1 , false , false));
                         Bukkit.getPlayer(ch.getUniqueId()).setGameMode(GameMode.ADVENTURE);
                     }
 
-                    for (Player p : Bukkit.getOnlinePlayers())
+                    for (Character ch : GameManager.getJoinedPlayers())
                     {
-                        p.sendTitle(ChatColor.WHITE + "" + ChatColor.BOLD + "ゲームスタート!!" ,"" , 0 , 30 , 20);
+                        Player p = Bukkit.getPlayer(ch.getUniqueId());
+
+                        if (ch.getType() == ChType.MAN)
+                        {
+                            p.sendTitle(ChatColor.WHITE + "" + ChatColor.BOLD + "ゲームスタート!!" ,ChatColor.BLUE + "あなたは男です" , 0 , 30 , 20);
+                        }
+                        else
+                        {
+                            p.sendTitle(ChatColor.WHITE + "" + ChatColor.BOLD + "ゲームスタート!!" ,ChatColor.RED + "あなたは女です" , 0 , 30 , 20);
+                        }
                         p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                     }
 
@@ -163,10 +172,10 @@ public class WorldPreparer {
 
     private static void wearArmors(List<ItemStack> armors , Player player)
     {
-        player.getInventory().setHelmet(armors.get(0));
+        //player.getInventory().setHelmet(armors.get(0));
         player.getInventory().setChestplate(armors.get(1));
-        player.getInventory().setLeggings(armors.get(2));
-        player.getInventory().setBoots(armors.get(3));
+        //player.getInventory().setLeggings(armors.get(2));
+        //player.getInventory().setBoots(armors.get(3));
     }
 
     public static Location getSpawnLocation() {

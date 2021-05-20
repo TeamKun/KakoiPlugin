@@ -91,6 +91,7 @@ public class GameTimer extends BukkitRunnable {
         new BukkitRunnable()
         {
             int i = 0;
+
             @Override
             public void run()
             {
@@ -98,9 +99,10 @@ public class GameTimer extends BukkitRunnable {
                 {
                     for (Player player : Bukkit.getOnlinePlayers())
                     {
-                        player.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "終了！！！");
+                        player.sendTitle("" , ChatColor.GREEN + "終了！！！" , 0 , 40 , 20);
                         player.playSound(player.getLocation() , Sound.BLOCK_ANVIL_USE , 0.5F , 1);
                     }
+                    GameManager.isStarted = false;
                 }
                 else if (i == 3)
                 {
@@ -114,7 +116,7 @@ public class GameTimer extends BukkitRunnable {
                 {
                     for (Player player : Bukkit.getOnlinePlayers())
                     {
-                        player.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "初期地にリスポーンします・・・。");
+                        player.sendTitle("" , ChatColor.GREEN + "初期地にリスポーンします・・・。" , 10 , 40 , 10);
                     }
                 }
                 else if (i > 8)
@@ -157,12 +159,12 @@ public class GameTimer extends BukkitRunnable {
                 Player p = Bukkit.getPlayer(ch.getUniqueId());
                 if (ch.getType().equals(ChType.MAN))
                 {
-                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "女の誘惑には勝てないね・・・。" , 10 , 40 , 10);
+                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "女の誘惑に勝てた男は一人もいませんでした" , 10 , 40 , 10);
                     p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                 }
                 else
                 {
-                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "男がちでちょろすんぎ。（笑）" , 10 , 40 , 10);
+                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "落とせない男は存在しないようだ" , 10 , 40 , 10);
                     p.playSound(p.getLocation() , Sound.UI_TOAST_CHALLENGE_COMPLETE , 0.5F , 1);
                 }
             }
@@ -182,12 +184,12 @@ public class GameTimer extends BukkitRunnable {
                 Player p = Bukkit.getPlayer(ch.getUniqueId());
                 if (ch.getType().equals(ChType.MAN))
                 {
-                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "女おもろｗ" , 10 , 40 , 10);
+                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "男は女から逃げ切り、秩序は保たれた" , 10 , 40 , 10);
                     p.playSound(p.getLocation() , Sound.UI_TOAST_CHALLENGE_COMPLETE , 0.5F , 1);
                 }
                 else
                 {
-                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "ｱｾｱｾ(ˉ ˘ ˉ; )アプローチの仕方・・もう少し変えてみよ。。" , 10 , 40 , 10);
+                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "女は男を落とせず、秩序は保たれた" , 10 , 40 , 10);
                     p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
                 }
             }

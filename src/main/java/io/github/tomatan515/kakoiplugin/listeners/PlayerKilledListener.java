@@ -29,31 +29,31 @@ public class PlayerKilledListener implements Listener {
         if(e.getEntity() instanceof Player && GameManager.getCharacter(e.getEntity().getUniqueId()).getType().equals(ChType.MAN)) {
             Player damaged = (Player) e.getEntity();
 
-            if(e.getDamager() instanceof Player) {
+            if (e.getDamager() instanceof Player) {
                 Character c = GameManager.getCharacter(e.getDamager().getUniqueId());
 
                 //攻撃した人が男であって、まだ捕まってなければ
-                if (c.getType().equals(ChType.MAN) && !((Man)c).isCought())
-                {
+                if (c.getType().equals(ChType.MAN) && !((Man) c).isCought()) {
                     e.setCancelled(true);
                     return;
                 }
 
                 Player damager = (Player) e.getDamager();
 
-                if((damaged.getHealth() - e.getDamage()) <= 0) {
+                if ((damaged.getHealth() - e.getDamage()) <= 0) {
                     //Killed
                     e.setCancelled(true);
                     damaged.setHealth(20);
 
                     //死んだときの処理
-                    onDeath(damaged , damager);
+                    onDeath(damaged, damager);
                     //不真面目にした！！！等のメッセージ
+                } else {
+                    damaged.getWorld().spawnParticle(Particle.HEART, damaged.getLocation(), 10, 1, 1, 1, 10);
                 }
-                else
-                {
-                    damaged.getWorld().spawnParticle(Particle.HEART , damaged.getLocation() , 10 , 1 , 1 , 1 , 10);
-                }
+            }
+            else{
+                e.setCancelled(true);
             }
         }
         else

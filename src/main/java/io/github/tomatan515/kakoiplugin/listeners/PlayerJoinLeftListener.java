@@ -41,7 +41,7 @@ public class PlayerJoinLeftListener implements Listener {
         player.teleport(WorldPreparer.getSpawnLocation());
         player.setGameMode(GameMode.ADVENTURE);
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 4 , false , false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE , Integer.MAX_VALUE , 1 , false , false));
 
         player.getInventory().setHelmet(new ItemStack(Material.WITHER_SKELETON_SKULL));
 

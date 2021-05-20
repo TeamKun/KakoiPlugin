@@ -76,7 +76,7 @@ public class GameCommand implements CommandExecutor {
             s.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "スポーン地点を設定しました！");
             return true;
         }
-        else if (args[0].equalsIgnoreCase("warihuri"))
+        else if (args[0].equalsIgnoreCase("warihuri") && args[1] != null && args[1].equalsIgnoreCase("girl"))
         {
             if (GameManager.isStarted)
             {
@@ -86,7 +86,7 @@ public class GameCommand implements CommandExecutor {
             s.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "プレイヤーを割り振りました！");
             return true;
         }
-        else if (args[0].equalsIgnoreCase("warifuri") && args[1] != null)
+        else if (args[0].equalsIgnoreCase("warihuri") && args[1] != null)
         {
             try
             {
@@ -94,7 +94,7 @@ public class GameCommand implements CommandExecutor {
             }
             catch (NumberFormatException e)
             {
-                s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "第二引数には数値を入力してください。");
+                s.sendMessage(KakoiPlugin.PREFIX + ChatColor.RED + "第2引数には数値を入力してください。");
             }
         }
         else if (args[0].equalsIgnoreCase("test"))
