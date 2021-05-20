@@ -75,7 +75,77 @@ public class PlayerKilledListener implements Listener {
             if (e.getEntity() instanceof Player)
             {
                 //エンティティーから攻撃をうける以外だったら
-                if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK) && !e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK))
+                if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID))
+                {
+                    Player p = (Player) e.getEntity();
+                    p.teleport(WorldPreparer.getSpawnLocation());
+                    e.setCancelled(true);
+
+                    if (GameManager.getCharacter(p.getUniqueId()).getType().equals(ChType.MAN)
+                            && !((Man)GameManager.getCharacter(p.getUniqueId())).isCought())
+                    {
+                        //捕まってなければ
+                        for (Player pl : Bukkit.getOnlinePlayers())
+                        {
+                            pl.sendMessage(KakoiPlugin.PREFIX + ChatColor.BLUE + p.getName() + "が女の子に自ら囲われに行った。");
+                        }
+
+                        Man man = (Man) GameManager.getCharacter(p.getUniqueId());
+                        man.setCought(true);
+
+                        new BukkitRunnable()
+                        {
+                            int i = 0;
+
+                            @Override
+                            public void run()
+                            {
+
+                                if (i > 3)
+                                {
+                                    PlayerJoinLeftListener.manRespawn(p);
+                                    this.cancel();
+                                }
+                                else
+                                {
+                                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                                    p.setGameMode(GameMode.SPECTATOR);
+                                }
+
+                                i++;
+
+                            }
+                        }.runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class) , 0 , 20);
+                    }
+                    else
+                    {
+                        new BukkitRunnable()
+                        {
+                            int i = 0;
+
+                            @Override
+                            public void run()
+                            {
+
+                                if (i > 3)
+                                {
+                                    p.teleport(WorldPreparer.getSpawnLocation());
+                                    p.setGameMode(GameMode.ADVENTURE);
+                                    this.cancel();
+                                }
+                                else
+                                {
+                                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                                    p.setGameMode(GameMode.SPECTATOR);
+                                }
+
+                                i++;
+
+                            }
+                        }.runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class) , 0 , 20);
+                    }
+                }
+                else if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK) && !e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK))
                 {
                     e.setCancelled(true);
                 }
