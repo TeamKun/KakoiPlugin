@@ -6,7 +6,6 @@ import io.github.tomatan515.kakoiplugin.characters.Character;
 import io.github.tomatan515.kakoiplugin.characters.Girl;
 import io.github.tomatan515.kakoiplugin.characters.Man;
 import io.github.tomatan515.kakoiplugin.game.GameManager;
-import io.github.tomatan515.kakoiplugin.game.GameTimer;
 import io.github.tomatan515.kakoiplugin.game.WorldPreparer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -52,15 +51,9 @@ public class PlayerKilledListener implements Listener {
                     damaged.setHealth(20);
 
                     //死んだときの処理
+                    GameManager.isPlayerRespawning.put(damaged.getUniqueId() , true);
                     onDeath(damaged, damager);
                     //不真面目にした！！！等のメッセージ
-
-                    if (damaged.getName().equalsIgnoreCase("tomatan515"))
-                    {
-                        GameManager.isStarted = false;
-                        Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (KilledListener) ");
-                        GameTimer.showResult(true);
-                    }
 
                 } else {
                     damaged.getWorld().spawnParticle(Particle.HEART, damaged.getLocation(), 10, 1, 1, 1, 10);
@@ -84,11 +77,13 @@ public class PlayerKilledListener implements Listener {
             if (e.getEntity() instanceof Player)
             {
                 //エンティティーから攻撃をうける以外だったら
-                if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID))
+                if (e.getCause().equals(EntityDamageEvent.DamageCause.VOID) && !GameManager.isPlayerRespawning.get(e.getEntity().getUniqueId()))
                 {
                     Player p = (Player) e.getEntity();
                     p.teleport(WorldPreparer.getSpawnLocation());
                     e.setCancelled(true);
+
+                    GameManager.isPlayerRespawning.put(p.getUniqueId() , true);
 
                     if (GameManager.getCharacter(p.getUniqueId()).getType().equals(ChType.MAN)
                             && !((Man)GameManager.getCharacter(p.getUniqueId())).isCought())
@@ -102,8 +97,10 @@ public class PlayerKilledListener implements Listener {
                         Man man = (Man) GameManager.getCharacter(p.getUniqueId());
                         man.setCought(true);
 
+
                         new BukkitRunnable()
                         {
+
                             int i = 0;
 
                             @Override
@@ -113,11 +110,12 @@ public class PlayerKilledListener implements Listener {
                                 if (i > 3)
                                 {
                                     PlayerJoinLeftListener.manRespawn(p);
+                                    GameManager.isPlayerRespawning.put(p.getUniqueId() , false);
                                     this.cancel();
                                 }
                                 else
                                 {
-                                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                                    p.sendTitle("" , KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。" , 0 ,20 , 0);
                                     p.setGameMode(GameMode.SPECTATOR);
                                 }
 
@@ -128,6 +126,7 @@ public class PlayerKilledListener implements Listener {
                     }
                     else
                     {
+
                         new BukkitRunnable()
                         {
                             int i = 0;
@@ -140,11 +139,14 @@ public class PlayerKilledListener implements Listener {
                                 {
                                     p.teleport(WorldPreparer.getSpawnLocation());
                                     p.setGameMode(GameMode.ADVENTURE);
+
+                                    GameManager.isPlayerRespawning.put(p.getUniqueId() , false);
+
                                     this.cancel();
                                 }
                                 else
                                 {
-                                    p.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                                    p.sendTitle("" , KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。" , 0 ,20 , 0);
                                     p.setGameMode(GameMode.SPECTATOR);
                                 }
 
@@ -193,11 +195,12 @@ public class PlayerKilledListener implements Listener {
                     if (i > 3)
                     {
                         PlayerJoinLeftListener.manRespawn(damaged);
+                        GameManager.isPlayerRespawning.put(damaged.getUniqueId() , false);
                         this.cancel();
                     }
                     else
                     {
-                        damaged.sendMessage(KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。");
+                        damaged.sendTitle("" , KakoiPlugin.PREFIX + ChatColor.GREEN + "あと" + (3 - i) + "秒でリスポーンします。" , 0 , 20 , 0);
                         damaged.setGameMode(GameMode.SPECTATOR);
                     }
 

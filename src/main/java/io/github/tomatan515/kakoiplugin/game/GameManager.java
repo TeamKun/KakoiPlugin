@@ -16,6 +16,9 @@ public class GameManager {
 
     private static List<Character> joinedPlayers = new ArrayList<>();
     public static HashMap<ChType , Class> typeToClass = new HashMap<>();
+
+    public static HashMap<UUID , Boolean> isPlayerRespawning = new HashMap<>();
+
     public static boolean isStarted = false;
 
     //自撮りテイカーにより男が止められているか

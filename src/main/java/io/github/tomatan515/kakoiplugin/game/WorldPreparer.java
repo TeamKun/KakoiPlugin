@@ -56,6 +56,7 @@ public class WorldPreparer {
         //装備を配る
         //ショップ等の説明
         //スポーン
+        GameManager.isPlayerRespawning.clear();
 
         for (Player p : Bukkit.getOnlinePlayers())
         {
@@ -64,6 +65,8 @@ public class WorldPreparer {
             p.getInventory().addItem(new ItemStack(Material.BREAD , 64));
             p.setHealth(20);
             p.updateInventory();
+
+            GameManager.isPlayerRespawning.put(p.getUniqueId() , false);
         }
 
         new BukkitRunnable()

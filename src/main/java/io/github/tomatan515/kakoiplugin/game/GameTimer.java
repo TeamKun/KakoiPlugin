@@ -55,7 +55,7 @@ public class GameTimer extends BukkitRunnable {
 
             Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (timer) ");
 
-            showResult(false);
+            showResult();
             this.cancel();
         }
     }
@@ -66,7 +66,7 @@ public class GameTimer extends BukkitRunnable {
         {
             GameManager.isStarted = false;
             Bukkit.getConsoleSender().sendMessage(KakoiPlugin.PREFIX + "ShowResultが呼び出されました (update) ");
-            showResult(false);
+            showResult();
         }
         for (Player p : Bukkit.getOnlinePlayers())
         {
@@ -92,7 +92,7 @@ public class GameTimer extends BukkitRunnable {
         this.time = time;
     }
 
-    public static void showResult(boolean isTomatan)
+    public void showResult()
     {
         new BukkitRunnable()
         {
@@ -111,7 +111,7 @@ public class GameTimer extends BukkitRunnable {
                 }
                 else if (i == 3)
                 {
-                    showMen(isTomatan);
+                    showMen();
                 }
                 else if (i == 6)
                 {
@@ -136,7 +136,7 @@ public class GameTimer extends BukkitRunnable {
         }.runTaskTimer(KakoiPlugin.getPlugin(KakoiPlugin.class) , 0 , 20);
     }
 
-    private static void showMen(boolean isTomatan)
+    private void showMen()
     {
         List<String> result = new ArrayList<>();
         //逃げ切った人一覧の表示
@@ -174,29 +174,6 @@ public class GameTimer extends BukkitRunnable {
                 }
             }
         }
-        else if (isTomatan)
-        {
-            for (Player p : Bukkit.getOnlinePlayers())
-            {
-                p.sendMessage(KakoiPlugin.PREFIX + ChatColor.YELLOW + "" + ChatColor.BOLD + "逃げ切れた男は誰一人おらず、全員女のとりこになりました。" + ChatColor.RESET);
-                p.playSound(p.getLocation() , Sound.ENTITY_VILLAGER_AMBIENT , 1 , 1);
-            }
-
-            for (Character ch : GameManager.getJoinedPlayers())
-            {
-                Player p = Bukkit.getPlayer(ch.getUniqueId());
-                if (ch.getType().equals(ChType.MAN))
-                {
-                    p.sendTitle(ChatColor.RED + "敗北！" , ChatColor.RED + "一番真面目なとまたんが囲われたため参加勢全員は女に囲われた" , 10 , 40 , 10);
-                    p.playSound(p.getLocation() , Sound.ENTITY_DRAGON_FIREBALL_EXPLODE , 0.5F , 1);
-                }
-                else
-                {
-                    p.sendTitle(ChatColor.GREEN + "勝利！" , ChatColor.YELLOW + "落とせない男は存在しないようだ" , 10 , 40 , 10);
-                    p.playSound(p.getLocation() , Sound.UI_TOAST_CHALLENGE_COMPLETE , 0.5F , 1);
-                }
-            }
-        }
         else
         {
             String str = result.stream().collect(Collectors.joining(ChatColor.GRAY + ","));
@@ -225,7 +202,7 @@ public class GameTimer extends BukkitRunnable {
         }
     }
 
-    private static void rankingGirl()
+    private void rankingGirl()
     {
         Girl mvp = null;
         int mvpKill = 0;
